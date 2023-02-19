@@ -19,11 +19,6 @@ export class Phonebook extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.addContact();
-    this.reset();
-  };
   addContact = (newName, newNumber) => {
     if (this.preventDublicate(newNumber)) {
       return window.alert(`Number is already saved`);
@@ -41,9 +36,6 @@ export class Phonebook extends Component {
     );
     return Boolean(dublicate);
   }
-  reset = () => {
-    this.setState({ name: '', number: '' });
-  };
 
   deleteContact = id => {
     this.setState(prevState => {
@@ -71,10 +63,9 @@ export class Phonebook extends Component {
         <ContactForm addContact={this.addContact} />
 
         <h2>Contacts</h2>
-        <Filter onChange={this.handleInputChange} />
+        <Filter onChange={this.handleInputChange} value={this.state.filter} />
         <Contacts
           data={this.getFilteredContacts()}
-          filter={this.state.filter}
           onDelete={this.deleteContact}
         />
       </>
